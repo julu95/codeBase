@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<TITLE>menu</TITLE>
+	<link rel="stylesheet" type="text/css" href="mainpage.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript">
+	function withdraw()
+	{
+		window.location.assign("withdraw.php");
+		//var x=document.forms["f1"]["wid"].value;
+		//var x=1;
+	}
+	</script>
+	</head>
+<body>
+	<h1 class="m">MENU ! ! !</h1>
+	<form method="post"  name="f1">
+	<table class="t">
+		<tr class="l">
+			<td><input type="button" value="Case Withdraw" name="wid" onclick="withdraw()" ></td><td><input type="button" value="Check Balance" name="bal"></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="Case Deposit" name="dep"></td><td><input type="button" value="Request Check book" name="rcb"></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="Case Transfer" Name="trn"></td><td><input type="button" value="Change  Pin" name="pin"></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="Update Customer" name="uc"></td><td><input type="button" value="MiniStatement" name="mini"></td>
+		</tr>
+		
+	</table>
+	</form>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<?php
+session_start()
+$cookie_AccNo="accno";
+$cookie_curr_amount="curr_amount";
+setcookie($cookie_AccNo, $cookie_curr_amount, time() + (86400 * 30), "/"); // 86400 = 1 day
+?>
+
+<html>
+<head>
+	<TITLE>withdraw</TITLE>
+	<link rel="stylesheet" type="text/css" href="mainpage.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+	
+	<h1 class="m">WIRHDRAW ! ! !</h1>
+	<form method="post" action="withdraw.php">
+	<table class="t">
+		<tr>
+			<td>Your A/C No:</td><td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>Your Current Balance:</td><td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>Enter Amount To Withdraw:</td><td><input type="text"></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="withdraw"></td>
+		</tr>
+	</table>
+	</form>
+	<?php
+	 
+
+
+	@mysql_connect("localhost","julu","RHSM25d9548") or die("Couldn't connect");
+	@mysql_select_db("atm") or die("Database not connected");
+	$AccNo=$_POST["accno"];
+	//$pin=$_POST["pin"];
+	$query="select * from withdraw where AccNo=$AccNo and curr_amount=$curr_amount";
+	if($result=mysql_query($query))
+	{
+		while($row=mysql_fetch_assoc($result))
+		{
+			//echo $row["AccNo"].'  '.$row["CardNo"].'  '.$row["Pin"].'<br>';
+			 $_SESSION["withdraw"] = $accno;
+			header("Location: http://localhost:87/Projects/ATM/withdraw.html");
+		}
+	}
+	else
+	{
+		echo "Fetch operation failed";
+	}
+	
+?>
+<?php
+// remove all session variables
+session_unset();
+
+// destroy the session
+session_destroy();
+?>
+
+</body>
+</html>

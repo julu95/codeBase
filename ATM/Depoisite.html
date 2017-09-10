@@ -1,0 +1,50 @@
+<?php
+session_start();
+<html>
+<head>
+	<TITLE>Deposit</TITLE>
+	<link rel="stylesheet" type="text/css" href="mainpage.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<?php
+	@mysql_connect("localhost","julu","RHSM25d9548") or die("Couldn't connect");
+	@mysql_select_db("atm") or die("Database not connected");
+	$AccNo=$_SESSION["AccNo"];
+	//$curr_amount=$_SESSION["bal"];
+	$query="select * from deposit where AccNo=$AccNo  ";
+	if($result=mysql_query($query))
+	{
+		while($row=mysql_fetch_assoc($result))
+		{
+			$_SESSION["Bal"]=$row["curr_amount"];
+			$amount=$_POST["amount"];
+			//for($amount=$_POST["amount"];$amount=$_SESSION["Bal"];$amount++)
+			$_SESSION["Bal"]=$_SESSION["Bal"]+$amount;
+			
+		}
+	}
+	else
+	{
+		die("Fetch operation failed");
+	}
+	?>
+	<h1 class="m">DEPOSITE ! ! !</h1>
+	<table class="t">
+		<tr>
+			<td>Your A/C No:</td><td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>Your Current Balance:</td><td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>Enter Amount To Deposit:</td><td><input type="text"></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Deposit"></td>
+		</tr>
+	</table>
+</body>
+</html>
